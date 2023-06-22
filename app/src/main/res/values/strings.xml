@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MovieVerse</string>
     <string name="hint_search">Search</string>
+    <string name="message_search_the_movie_to_start_watching_amazing_content">Search the movie to start watching amazing content</string>
 </resources>

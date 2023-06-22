@@ -68,10 +68,11 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getMovieList() {
+        _uiState.update { it.copy(loading = true) }
         viewModelScope.launch {
             movieList.collect { response ->
                 _uiState.update {
-                    it.copy(movie = response?.data, error = response?.error)
+                    it.copy(movie = response?.data, error = response?.error, loading = false)
                 }
             }
         }
@@ -82,6 +83,7 @@ class HomeViewModel @Inject constructor(
         val movieTypeList: List<MovieType> = MovieTypeListRepo.getMovieTypeList(),
         val selectedMovieType: MovieType = movieTypeList.first(),
         val movie: Movie? = null,
+        val loading: Boolean = false,
         val error: String? = null
     )
 }

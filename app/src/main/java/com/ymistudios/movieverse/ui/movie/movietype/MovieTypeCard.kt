@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.ymistudios.movieverse.ui.theme.MoviesVerseTheme
 import com.ymistudios.movieverse.ui.theme.NavyBlue
+import com.ymistudios.movieverse.utils.capitalizeFirstLetter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +59,7 @@ fun MovieTypeCard(
                 contentScale = ContentScale.Crop
             )
             Text(
-                text = movieType.type,
+                text = movieType.type.capitalizeFirstLetter(),
                 style = MoviesVerseTheme.typography.subTitle,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)

@@ -24,19 +24,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ymistudios.movieverse.R
+import com.ymistudios.movieverse.data.pojo.Movie
+import com.ymistudios.movieverse.ui.destinations.MovieDetailsScreenDestination
 import com.ymistudios.movieverse.ui.movie.MovieCard
 import com.ymistudios.movieverse.ui.movie.movietype.MovieTypeList
 import com.ymistudios.movieverse.ui.theme.MoviesVerseTheme
 
 @Destination(start = true)
 @Composable
-fun HomeScreen(homeViewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    navigator: DestinationsNavigator,
+    homeViewModel: HomeViewModel = hiltViewModel()
+) {
     val uiState by homeViewModel.uiState.collectAsStateWithLifecycle()
     Scaffold { paddingValues ->
         Box(
@@ -46,7 +53,10 @@ fun HomeScreen(homeViewModel: HomeViewModel = hiltViewModel()) {
         ) {
             HomeScreen(
                 uiState = uiState,
-                onEvent = homeViewModel::onEvent
+                onEvent = homeViewModel::onEvent,
+                onMovieItemClick = {
+                    navigator.navigate(MovieDetailsScreenDestination(it))
+                }
             )
         }
     }
@@ -55,10 +65,11 @@ fun HomeScreen(homeViewModel: HomeViewModel = hiltViewModel()) {
 @Composable
 private fun HomeScreen(
     uiState: HomeViewModel.UIState,
-    onEvent: (event: HomeEvent) -> Unit
+    onEvent: (event: HomeEvent) -> Unit,
+    onMovieItemClick: (movie: Movie) -> Unit
 ) {
     Column(
-        Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         Spacer(modifier = Modifier.height(20.dp))
         Text(
@@ -98,14 +109,38 @@ private fun HomeScreen(
             }, selectedMovieType = uiState.selectedMovieType
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        when {
+            uiState.movie != null -> {
+                Spacer(modifier = Modifier.height(8.dp))
+                MovieCard(
+                    movie = uiState.movie,
+                    modifier = Modifier.padding(horizontal = HorizontalSpacing),
+                    onMovieItemClick = onMovieItemClick
+                )
+            }
 
-        uiState.movie?.let {
-            MovieCard(movie = it, modifier = Modifier.padding(horizontal = HorizontalSpacing))
-        }
-        uiState.error?.let {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = it, modifier = Modifier.padding(horizontal = HorizontalSpacing))
+            uiState.error != null -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(
+                        text = uiState.error,
+                        modifier = Modifier.padding(horizontal = HorizontalSpacing),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+
+            uiState.loading -> {
+
+            }
+
+            else -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(
+                        text = stringResource(R.string.message_search_the_movie_to_start_watching_amazing_content),
+                        modifier = Modifier.padding(horizontal = HorizontalSpacing),
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }
@@ -116,5 +151,5 @@ val HorizontalSpacing = 20.dp
 @Preview
 @Composable
 fun HomeScreenPrev() {
-    HomeScreen()
+    HomeScreen(uiState = HomeViewModel.UIState(), onEvent = {}, onMovieItemClick = {})
 }

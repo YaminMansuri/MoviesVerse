@@ -5,15 +5,15 @@ object MovieTypeListRepo {
     fun getMovieTypeList() = arrayListOf(
         MovieType(
             type = "movie",
-            image = "https://images.unsplash.com/photo-1579445710183-f9a816f5da05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YXZlbmdlcnMlMjBlbmRnYW1lfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+            image = "https://getwallpapers.com/wallpaper/full/e/f/d/259446.jpg"
         ),
         MovieType(
             type = "series",
-            image = "https://images.unsplash.com/photo-1640499900704-b00dd6a1103a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZlbmdlcnMlMjBlbmRnYW1lfGVufDB8MHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            image = "https://i.pinimg.com/originals/88/39/53/883953fddc1dbc9e2a16e1eda4f26dad.jpg"
         ),
         MovieType(
             type = "episode",
-            image = "https://images.unsplash.com/photo-1579445710183-f9a816f5da05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YXZlbmdlcnMlMjBlbmRnYW1lfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+            image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTovI5X8eKt4BRK-CM2PnOPkkXJVwqZ5E65ng&usqp=CAU"
         )
     )
 }
