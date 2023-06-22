@@ -2,7 +2,6 @@ package com.ymistudios.movieverse.ui.movie
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,17 +29,17 @@ fun MovieCard(movie: Movie, modifier: Modifier = Modifier) {
         onClick = {}
     ) {
         AsyncImage(
-            model = movie.image,
+            model = movie.poster,
             contentDescription = "Movie",
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .height(180.dp)
                 .clip(RoundedCornerShape(8.dp)),
             contentScale = ContentScale.Crop
         )
         Column(Modifier.padding(8.dp)) {
             Spacer(modifier = Modifier.height(2.dp))
-            Text(text = movie.name ?: "", style = MoviesVerseTheme.typography.body)
+            Text(text = movie.title ?: "", style = MoviesVerseTheme.typography.body)
             Text(
                 text = movie.type ?: "",
                 style = MoviesVerseTheme.typography.subTitle,
@@ -55,8 +54,8 @@ fun MovieCard(movie: Movie, modifier: Modifier = Modifier) {
 fun MovieCardPrev() {
     MovieCard(
         Movie(
-            name = "Avengers Endgame",
-            image = "https://images.unsplash.com/photo-1687125106218-3c7a1963bd6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60",
+            title = "Avengers Endgame",
+            poster = "https://images.unsplash.com/photo-1687125106218-3c7a1963bd6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60",
             releaseDate = "2016"
         )
     )

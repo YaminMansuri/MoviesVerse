@@ -13,16 +13,20 @@ class MovieRepositoryImpl @Inject constructor(
     @Named(DiConstants.API_KEY) private val apiKey: String
 ) : MovieRepository {
 
-    override suspend fun getMovieList(search: String, page: Int): Response<Movie> {
-        return try {
+    override suspend fun getMovieList(search: String, type: String): Response<Movie> {
+        try {
             val response = movieService.getMovieList(
                 apiKey = apiKey,
                 search = search,
-                page = page
+                type = type
             )
-            Response.Success(response)
+            response.error?.let { error ->
+                return Response.Error(error)
+            } ?: run {
+                return Response.Success(response)
+            }
         } catch (e: Exception) {
-            Response.Error(error = e.message)
+            return Response.Error(error = e.message)
         }
     }
 }

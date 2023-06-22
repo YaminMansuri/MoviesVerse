@@ -10,6 +10,6 @@ interface MovieService {
     suspend fun getMovieList(
         @Query("apikey") apiKey: String,
         @Query("t") search: String,
-        @Query("page") page: Int
+        @Query("type") type: String
     ): Movie
 }

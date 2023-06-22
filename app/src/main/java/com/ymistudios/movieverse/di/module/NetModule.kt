@@ -1,6 +1,5 @@
 package com.ymistudios.movieverse.di.module
 
-import com.ymistudios.movieverse.data.URLManager
 import com.ymistudios.movieverse.di.DiConstants
 import dagger.Module
 import dagger.Provides
@@ -35,12 +34,19 @@ object NetModule {
 
     @Provides
     @Singleton
+    @Named(DiConstants.BASE_URL)
+    fun provideBaseUrl(): String {
+        return "http://www.omdbapi.com/?"
+    }
+
+    @Provides
+    @Singleton
     fun provideRetrofit(
-        @Named(DiConstants.API_KEY) apiKey: String,
+        @Named(DiConstants.BASE_URL) baseUrl: String,
         okHttpClient: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://www.omdbapi.com/?")
+            .baseUrl(baseUrl)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

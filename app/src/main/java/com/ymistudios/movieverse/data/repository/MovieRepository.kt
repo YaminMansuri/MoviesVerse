@@ -5,5 +5,5 @@ import com.ymistudios.movieverse.data.pojo.Movie
 
 interface MovieRepository {
 
-    suspend fun getMovieList(search: String, page: Int): Response<Movie>
+    suspend fun getMovieList(search: String, type: String): Response<Movie>
 }
